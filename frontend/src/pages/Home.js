@@ -6,6 +6,13 @@ import axios from "axios";
 const Home = ({ user, setUser }) => {
   const navigate = useNavigate();
 
+  const date = new Date(user?.dateOfBirth);
+  const formattedDate = date.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   const handleLogout = async () => {
     try {
       const res = await axios.post(
@@ -44,6 +51,7 @@ const Home = ({ user, setUser }) => {
           </div>
           <h2 className="text-xl font-bold">{user?.userName}</h2>
           <p className="">{user?.email}</p>
+          <p className="text-gray-500">{formattedDate}</p>
           <button
             onClick={handleLogout}
             className=" mt-10 flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
