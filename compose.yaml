@@ -2,6 +2,7 @@ services:
   backend:
     build:
       context: ./backend
+    image: shivam7singh/backend:v1.0
     ports:
       - "4000:4000"
     container_name: backend
@@ -9,6 +10,7 @@ services:
   frontend:
     build:
       context: ./frontend
+    image: shivam7singh/frontend:v1.0
     ports:
       - "3000:3000"
     container_name: frontend
@@ -16,12 +18,12 @@ services:
       - backend
 
   nginx:
+    build:
+      context: ./nginx
+    image: shivam7singh/nginx:v1.0
     restart: always
-    image: nginx:latest
     ports:
       - "80:80"
-    volumes:
-      - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
     depends_on:
       - frontend
       - backend
